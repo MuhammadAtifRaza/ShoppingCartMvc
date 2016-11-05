@@ -1,0 +1,50 @@
+@using Sakura.AspNetCore;
+@model IPagedList<Shoppingcartmvc.Models.Product>
+<div class="col-md-12" style="margin-top:10px">
+   
+    
+    </div>
+    
+    <div class= "col-md-3">
+        @{
+            IList<Category> C = ViewBag.category;
+            var a = Html.Partial("ViewCategory", C);
+
+
+            @a;
+        }
+    </div>
+    <div class="col-md-9">
+        @foreach (var item in Model)
+        {
+
+            <div class="panel panel-success col-md-4">
+                <div class="panel panel-heading">
+                    <a href="ProductsDetails?ProId=@Html.DisplayFor(modelItem=>item.Id)">
+                        <img src="~/UploadedData/pps/@item.Image" style="width:100% ;height:100px" class="img-circle " />
+                    </a>
+                </div>
+                <div class="panel panel-body">
+                    Name: @Html.DisplayFor(modelItem => item.Name)
+                    <br />
+                    Desccription:@Html.DisplayFor(modelItem => item.Discription)
+                    <h3 class="panel-title">@Html.DisplayFor(modelItem => item.Price)</h3>
+                </div>
+                <div class="panel panel-footer">
+                    <a href="@Url.Action("downloadfile", new { filepath = item.Image })" class="btn btn-success">download</a>
+                    <input type="button" value="Add To Cart" class="btn btn-primary" />
+                </div>
+
+            </div>
+
+
+
+
+
+        }
+    </div>
+    <div class="clearfix"></div>
+
+
+
+<div class="col-md-offset-5"><pager source="@Model" /></div>

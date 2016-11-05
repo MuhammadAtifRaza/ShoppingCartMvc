@@ -1,0 +1,51 @@
+@model Shoppingcartmvc.Models.Subcategory
+
+@{
+    ViewData["Title"] = "Subcategory";
+}
+@if (ViewBag.Message != null && ViewBag.Message != "")
+{
+    <h3 class="alert-info">@ViewBag.Message</h3>
+}
+@{
+    IList<Category> SL = ViewBag.SL;
+    SelectList oSL = new SelectList(SL, "Id", "Name");
+}
+
+<h2>Subcategory</h2>
+
+<form asp-action="Subcategory">
+    <div class="form-horizontal">
+        <h4>Subcategory</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            
+            <div class="col-md-offset-2col-md-10">
+                @Html.DropDownList("Pid", oSL, " -- Select Category -- ", new { @class = "form-control" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            
+            <div class="col-md-offset-2col-md-10">
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

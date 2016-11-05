@@ -1,0 +1,105 @@
+@model IEnumerable<Shoppingcartmvc.Models.User>
+
+@{
+    ViewData["Title"] = "AllUser";
+}
+
+<h2>AllUser</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Createddate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Createdby)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modifieddate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modifiedby)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Createddate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Createdby)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modifieddate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modifiedby)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+               <a class="delbtn" href="#" data-userid="@item.Id">Delete </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section scripts{
+    <script>
+        $(function () {
+            $(".delbtn").click(function () {
+                var userid = $(this).data("userid");
+                var dada = $(this).parent().parent();
+                alert(userid);
+                $.ajax({
+                    data: { UserID: userid },
+                    url: '@Url.Action("DeleteUser","Home")',
+                    type: 'GET',
+                    sucess: function (r) {
+                        if (r == "DONE") {
+                            alert("User With Id=" + userid + "has been deletd successfully.");
+                            dada.fadeOut();
+
+
+
+                        }
+
+                    }
+
+                });
+
+            });
+
+        });
+    </script>
+}

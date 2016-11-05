@@ -1,0 +1,81 @@
+@model Shoppingcartmvc.Models.Product
+
+@{
+    ViewData["Title"] = "Product";
+}
+@if (ViewBag.Message != null && ViewBag.Message != "")
+{
+    <h3 class="alert-info">@ViewBag.Message</h3>
+}
+@{
+    IList<Category> SL = ViewBag.SL;
+    SelectList oSL = new SelectList(SL, "Id", "Name");
+
+    IList<Subcategory> CL = ViewBag.CL;
+    SelectList oCL = new SelectList(CL, "Id", "Name");
+}
+
+<h2>Product</h2>
+
+<form asp-action="Product"method="post"enctype="multipart/form-data">
+    <div class="form-horizontal">
+        <h4>Product</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+       
+        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.DropDownList("Parentcategory", oSL, " -- Select Category --", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.DropDownList("Subcategory", oCL, " -- Select Sub-category -- ", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            
+            <div class="col-md-offset-2 col-md-10">
+                <input asp-for="Name" class="form-control"placeholder="Name" />
+                <span asp-validation-for="Name" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            
+            <div class="col-md-offset-2 col-md-10">
+                <input asp-for="Discription" class="form-control"placeholder="Discription" />
+                <span asp-validation-for="Discription" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="file" asp-for="Image" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            
+            <div class="col-md-offset-2 col-md-10">
+                <input asp-for="Price" class="form-control"placeholder="Price" />
+                <span asp-validation-for="Price" class="text-danger" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add Products" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a href="@Url.Action("showProducts","Home")" class="btn btn-success">Show Products</a>
+    <a href="@Url.Action("Allproducts","Home")" class="btn btn-success">All Products </a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

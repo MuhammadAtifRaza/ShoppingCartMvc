@@ -1,0 +1,27 @@
+@model IEnumerable<Shoppingcartmvc.Models.Category>
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<ul class="nav nav-pills nav-stacked">
+    <li class="active btn btn-primary btn-lg">Categories</li>
+    <li><hr size="1" height="100px" /></li>
+
+
+    @foreach (var item in Model)
+    {
+        <li class="active btn btn-primary btn-lg">
+            <a href="showProducts?cat=@Html.DisplayFor(modelItem => item.Id)">
+                @Html.DisplayFor(modelItem => item.Name)
+            </a>
+        </li>
+
+
+
+
+    }
+</ul>
+Chat Conversation End
+
+}
